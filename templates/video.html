@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Security Reels</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Segoe UI, Arial, sans-serif;
+    background:linear-gradient(
+        180deg,
+        #020617 0%,
+        #071330 100%
+    );
+    min-height:100vh;
+    color:white;
+}
+
+/* REGRESAR */
+
+.header{
+    padding:15px 25px;
+}
+
+.header a{
+    color:white;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:600;
+}
+
+.header a:hover{
+    color:#60A5FA;
+}
+
+/* LOGO */
+
+.logo-mini{
+    position:fixed;
+    top:15px;
+    right:25px;
+    z-index:1000;
+}
+
+.logo-mini img{
+    width:55px;
+}
+
+/* CONTENEDOR */
+
+.video-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:85vh;
+}
+
+/* VIDEO */
+
+video{
+
+    width:auto;
+
+    height:auto;
+
+    max-width:88vw;
+
+    max-height:85vh;
+
+    background:black;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 0 35px rgba(0,0,0,.45);
+}
+
+/* FLECHAS */
+
+.nav-btn{
+
+    position:fixed;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    color:white;
+
+    background:rgba(16,24,39,.75);
+
+    transition:.2s;
+
+    z-index:999;
+}
+
+.nav-btn:hover{
+
+    background:#1E293B;
+
+    transform:translateY(-50%) scale(1.1);
+}
+
+.nav-left{
+    left:25px;
+}
+
+.nav-right{
+    right:25px;
+}
+
+/* MOVIL */
+
+@media (max-width:900px){
+
+    .nav-btn{
+        width:60px;
+        height:60px;
+        font-size:28px;
+    }
+
+    .logo-mini img{
+        width:45px;
+    }
+
+    video{
+        max-width:95vw;
+        max-height:75vh;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="logo-mini">
+    <img src="/static/Logo.png">
+</div>
+
+<div class="header">
+    <a href="/categoria/{{ categoria }}">
+        ⬅ Regresar
+    </a>
+</div>
+
+<a href="/video/{{ categoria }}/{{ anterior }}"
+   class="nav-btn nav-left">
+    ⬅
+</a>
+
+<a href="/video/{{ categoria }}/{{ siguiente }}"
+   class="nav-btn nav-right">
+    ➡
+</a>
+
+<div class="video-container">
+
+    <video controls autoplay>
+        <source src="{{ ruta_video }}" type="video/mp4">
+        Tu 

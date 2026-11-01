@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tea & Technology - Security Reels</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#020617 0%,#071330 100%);min-height:100vh;color:white}
+.logo{padding:20px 30px}.logo img{width:220px}
+.container{text-align:center;margin-top:20px}
+h1{font-size:58px;margin-bottom:10px}
+h2{color:#60A5FA;font-weight:300;margin-bottom:60px}
+.perfiles{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:20px}
+.perfil{transition:.3s}.perfil:hover{transform:scale(1.08)}
+.perfil img{width:260px;cursor:pointer}.perfil a{text-decoration:none;color:white}
+.nombre{font-size:24px;margin-top:15px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="logo">
+<img src="{{ url_for('static', filename='Logo.png') }}">
+</div>
+<div class="container">
+<h1>Security Reels</h1>
+<h2>¿Quién está viendo?</h2>
+<div class="perfiles">
+<div class="perfil">
+<a href="/categoria/Kids">
+<img src="{{ url_for('static', filename='kids.png') }}">
+<div class="nombre">Kids</div>
+</a>
+</div>
+<div class="perfil">
+<a href="/categoria/Adolescentes">
+<img src="{{ url_for('static', filename='adolescentes.png') }}">
+<div class="nombre">Adolescentes</div>
+</a>
+</div>
+<div class="perfil">
+<a href="/categoria/Todos">
+<img src="{{ url_for('static', filename='todos.png') }}">
+<div class="nombre">Todos</div>
+</a>
+</div>
+</div>
+</div>
+</body>
+</html>
