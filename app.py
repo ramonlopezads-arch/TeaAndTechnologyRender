@@ -66,13 +66,15 @@ def video(categoria, nombre):
 
     videos = []
 
-    for archivo in os.listdir(carpeta):
+    if os.path.exists(carpeta):
 
-        if archivo.lower().endswith(".jpg"):
+        for archivo in os.listdir(carpeta):
 
-            videos.append(
-                os.path.splitext(archivo)[0]
-            )
+            if archivo.lower().endswith(".jpg"):
+
+                videos.append(
+                    os.path.splitext(archivo)[0]
+                )
 
     videos.sort()
 
