@@ -1,9 +1,7 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template
 import os
 
 app = Flask(__name__)
-
-VIDEOS_DIR = "videos"
 
 # =====================================================
 # PORTADA
@@ -13,6 +11,7 @@ VIDEOS_DIR = "videos"
 def inicio():
     return render_template("index.html")
 
+
 # =====================================================
 # CATEGORIAS
 # =====================================================
@@ -20,18 +19,19 @@ def inicio():
 @app.route("/categoria/<categoria>")
 def categoria(categoria):
 
-    ruta_categoria = os.path.join(
-        VIDEOS_DIR,
+    carpeta = os.path.join(
+        "static",
+        "thumbnails",
         categoria
     )
 
     videos = []
 
-    if os.path.exists(ruta_categoria):
+    if os.path.exists(carpeta):
 
-        for archivo in os.listdir(ruta_categoria):
+        for archivo in os.listdir(carpeta):
 
-            if archivo.lower().endswith(".mp4"):
+            if archivo.lower().endswith(".jpg"):
 
                 nombre = os.path.splitext(
                     archivo
@@ -39,18 +39,17 @@ def categoria(categoria):
 
                 videos.append({
                     "nombre": nombre,
-                    "thumb": nombre + ".jpg"
+                    "thumb": archivo
                 })
 
-    videos.sort(
-        key=lambda x: x["nombre"]
-    )
+    videos.sort(key=lambda x: x["nombre"])
 
     return render_template(
         "categoria.html",
         categoria=categoria,
         videos=videos
     )
+
 
 # =====================================================
 # VIDEO
@@ -59,16 +58,21 @@ def categoria(categoria):
 @app.route("/video/<categoria>/<nombre>")
 def video(categoria, nombre):
 
-    ruta_categoria = os.path.join(
-        VIDEOS_DIR,
+    carpeta = os.path.join(
+        "static",
+        "thumbnails",
         categoria
     )
 
-    videos = [
-        os.path.splitext(f)[0]
-        for f in os.listdir(ruta_categoria)
-        if f.lower().endswith(".mp4")
-    ]
+    videos = []
+
+    for archivo in os.listdir(carpeta):
+
+        if archivo.lower().endswith(".jpg"):
+
+            videos.append(
+                os.path.splitext(archivo)[0]
+            )
 
     videos.sort()
 
@@ -83,7 +87,8 @@ def video(categoria, nombre):
     ]
 
     ruta_video = (
-        f"/videos/{categoria}/"
+        f"https://res.cloudinary.com/"
+        f"mh5fkptg/video/upload/"
         f"{nombre}.mp4"
     )
 
@@ -94,29 +99,13 @@ def video(categoria, nombre):
         anterior=anterior,
         siguiente=siguiente
     )
-# =====================================================
-# SERVIR VIDEOS
-# =====================================================
 
-@app.route("/videos/<categoria>/<archivo>")
-def servir_video(categoria, archivo):
-
-    carpeta_video = os.path.join(
-        VIDEOS_DIR,
-        categoria
-    )
-
-    return send_from_directory(
-        carpeta_video,
-        archivo
-    )
 
 # =====================================================
 # MAIN
 # =====================================================
 
 if __name__ == "__main__":
-
     app.run(
         debug=True,
         host="0.0.0.0",

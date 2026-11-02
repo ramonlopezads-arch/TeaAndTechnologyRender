@@ -1,93 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
+@app.route("/categoria/<categoria>")
+def categoria(categoria):
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    carpeta = os.path.join(
+        "static",
+        "thumbnails",
+        categoria
+    )
 
-<title>{{ categoria }}</title>
+    videos = []
 
-<style>
+    if os.path.exists(carpeta):
 
-body{
-    margin:0;
-    background:linear-gradient(
-        180deg,
-        #020617 0%,
-        #071330 100%
-    );
-    color:white;
-    font-family:Segoe UI;
-}
+        for archivo in os.listdir(carpeta):
 
-.header{
-    padding:20px 30px;
-}
+            if archivo.lower().endswith(".jpg"):
 
-.header h1{
-    margin-top:20px;
-    font-size:42px;
-}
+                nombre = os.path.splitext(
+                    archivo
+                )[0]
 
-a{
-    color:white;
-    text-decoration:none;
-}
+                videos.append({
+                    "nombre": nombre,
+                    "thumb": archivo
+                })
 
-.grid{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fill,minmax(220px,1fr));
-    gap:20px;
-    padding:30px;
-}
+    videos.sort(
+        key=lambda x: x["nombre"]
+    )
 
-.card{
-    overflow:hidden;
-    border-radius:14px;
-    transition:.3s;
-}
-
-.card:hover{
-    transform:scale(1.05);
-}
-
-.card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-    border-radius:14px;
-    box-shadow:0 0 20px rgba(0,0,0,.35);
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-
-<a href="/">⬅ Inicio</a>
-
-<h1>{{ categoria }}</h1>
-
-</div>
-
-<div class="grid">
-
-{% for video in videos %}
-
-<div class="card">
-
-<a href="/video/{{ categoria }}/{{ video.nombre }}">
-
-<img src="/static/thumbnails/{{ categoria }}/{{ video.thumb }}">
-
-</a>
-
-</div>
-
-{% endfor %}
-
-</div>
+    return render_template(
+        "categoria.html",
+        categoria=categoria,
+        videos=videos
+    )
