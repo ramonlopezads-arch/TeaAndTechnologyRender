@@ -7,63 +7,68 @@
 
     <style>
         body{
-            font-family: Arial, sans-serif;
-            background:#111;
-            color:white;
-            text-align:center;
             margin:0;
             padding:20px;
+            background:#000;
+            color:#fff;
+            font-family:Arial,sans-serif;
+            text-align:center;
+        }
+
+        h1{
+            margin-bottom:40px;
+            font-size:60px;
         }
 
         .galeria{
             display:flex;
             flex-wrap:wrap;
             justify-content:center;
-            gap:20px;
+            gap:30px;
         }
 
         .video-card img{
-            width:220px;
-            height:320px;
+            width:300px;
+            height:475px;
             object-fit:cover;
-            border-radius:12px;
+            border-radius:18px;
+            transition:.3s;
             cursor:pointer;
         }
 
-        .video-card p{
-            margin-top:8px;
+        .video-card img:hover{
+            transform:scale(1.05);
         }
 
         a{
-            color:white;
             text-decoration:none;
         }
     </style>
 </head>
 <body>
 
-<h1>{{ categoria }}</h1>
+    <h1>{{ categoria }}</h1>
 
-<div class="galeria">
+    <div class="galeria">
 
-{% for video in videos %}
-<div class="video-card">
+        {% for video in videos %}
 
-    <a href="/video/{{ categoria }}/{{ video.nombre }}">
+        <div class="video-card">
 
-        <img
-            src="/static/thumbnails/{{ categoria }}/{{ video.thumb }}"
-            alt="{{ video.nombre }}"
-        >
+            <a href="/video/{{ categoria }}/{{ video.nombre }}">
 
-        <p>{{ video.nombre }}</p>
+                <img
+                    src="/static/thumbnails/{{ categoria }}/{{ video.thumb }}"
+                    alt="{{ video.nombre }}"
+                >
 
-    </a>
+            </a>
 
-</div>
-{% endfor %}
+        </div>
 
-</div>
+        {% endfor %}
+
+    </div>
 
 </body>
 </html>
