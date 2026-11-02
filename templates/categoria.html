@@ -6,33 +6,42 @@
     <title>{{ categoria }}</title>
 
     <style>
+
         body{
             margin:0;
             padding:20px;
-            background:#000;
-            color:#fff;
-            font-family:Arial,sans-serif;
+            background:black;
+            color:white;
+            font-family:Arial, sans-serif;
             text-align:center;
         }
 
+        .home{
+            position:fixed;
+            top:20px;
+            left:20px;
+            font-size:35px;
+            text-decoration:none;
+        }
+
         h1{
-            margin-bottom:40px;
             font-size:60px;
+            margin-bottom:30px;
         }
 
         .galeria{
             display:flex;
             flex-wrap:wrap;
             justify-content:center;
-            gap:30px;
+            gap:25px;
         }
 
         .video-card img{
-            width:300px;
-            height:475px;
+            width:220px;
+            height:390px;
             object-fit:cover;
-            border-radius:18px;
-            transition:.3s;
+            border-radius:15px;
+            transition:0.3s;
             cursor:pointer;
         }
 
@@ -43,9 +52,12 @@
         a{
             text-decoration:none;
         }
+
     </style>
 </head>
 <body>
+
+    <a href="/" class="home">🏠</a>
 
     <h1>{{ categoria }}</h1>
 
