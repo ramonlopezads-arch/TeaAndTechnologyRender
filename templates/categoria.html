@@ -17,16 +17,28 @@
         }
 
         .home{
-            position:fixed;
-            top:20px;
-            left:20px;
-            font-size:35px;
-            text-decoration:none;
+            position: fixed;
+            top: 20px;
+            left: 25px;
+            color: #E50914;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .home:hover{
+            color: white;
+            transform: scale(1.05);
         }
 
         h1{
             font-size:60px;
-            margin-bottom:30px;
+            margin-top:20px;
+            margin-bottom:40px;
         }
 
         .galeria{
@@ -41,12 +53,13 @@
             height:390px;
             object-fit:cover;
             border-radius:15px;
-            transition:0.3s;
             cursor:pointer;
+            transition:0.3s;
         }
 
         .video-card img:hover{
             transform:scale(1.05);
+            box-shadow:0 0 20px rgba(255,255,255,0.25);
         }
 
         a{
@@ -57,7 +70,9 @@
 </head>
 <body>
 
-    <a href="/" class="home">🏠</a>
+    <a href="/" class="home">
+        TEA & TECHNOLOGY
+    </a>
 
     <h1>{{ categoria }}</h1>
 
