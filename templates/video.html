@@ -1,46 +1,116 @@
-@app.route("/video/<categoria>/<nombre>")
-def video(categoria, nombre):
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
 
-    carpeta = os.path.join(
-        "static",
-        "thumbnails",
-        categoria
-    )
+    <style>
 
-    videos = []
+        body{
+            margin:0;
+            background:black;
+            color:white;
+            font-family:Arial,sans-serif;
+            text-align:center;
+        }
 
-    for archivo in os.listdir(carpeta):
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:20px 30px;
+        }
 
-        if archivo.lower().endswith(".jpg"):
+        .home{
+            color:#E50914;
+            text-decoration:none;
+            font-weight:900;
+            font-size:28px;
+            letter-spacing:2px;
+        }
 
-            videos.append(
-                os.path.splitext(
-                    archivo
-                )[0]
-            )
+        .home:hover{
+            color:white;
+        }
 
-    videos.sort()
+        .volver{
+            color:white;
+            text-decoration:none;
+            font-size:18px;
+        }
 
-    indice = videos.index(nombre)
+        video{
+            width:90%;
+            max-width:1200px;
+            margin-top:10px;
+            border-radius:12px;
+        }
 
-    anterior = videos[
-        (indice - 1) % len(videos)
-    ]
+        .navegacion{
+            margin:30px 0;
+            display:flex;
+            justify-content:center;
+            gap:20px;
+        }
 
-    siguiente = videos[
-        (indice + 1) % len(videos)
-    ]
+        .btn{
+            padding:12px 24px;
+            background:#E50914;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
 
-    ruta_video = (
-        f"https://res.cloudinary.com/"
-        f"mh5fkptg/video/upload/"
-        f"{nombre}.mp4"
-    )
+        .btn:hover{
+            background:#b20710;
+        }
 
-    return render_template(
-        "video.html",
-        categoria=categoria,
-        ruta_video=ruta_video,
-        anterior=anterior,
-        siguiente=siguiente
-    )
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+
+        <a href="/" class="home">
+            TEA & TECHNOLOGY
+        </a>
+
+        <a href="/categoria/{{ categoria }}" class="volver">
+            ← Volver
+        </a>
+
+    </div>
+
+    <video controls autoplay>
+
+        <source
+            src="{{ ruta_video }}"
+            type="video/mp4"
+        >
+
+        Tu navegador no soporta video.
+
+    </video>
+
+    <div class="navegacion">
+
+        <a
+            class="btn"
+            href="/video/{{ categoria }}/{{ anterior }}"
+        >
+            ⬅ Anterior
+        </a>
+
+        <a
+            class="btn"
+            href="/video/{{ categoria }}/{{ siguiente }}"
+        >
+            Siguiente ➡
+        </a>
+
+    </div>
+
+</body>
+</html>
