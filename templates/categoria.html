@@ -1,35 +1,69 @@
-@app.route("/categoria/<categoria>")
-def categoria(categoria):
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ categoria }}</title>
 
-    carpeta = os.path.join(
-        "static",
-        "thumbnails",
-        categoria
-    )
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#111;
+            color:white;
+            text-align:center;
+            margin:0;
+            padding:20px;
+        }
 
-    videos = []
+        .galeria{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            gap:20px;
+        }
 
-    if os.path.exists(carpeta):
+        .video-card img{
+            width:220px;
+            height:320px;
+            object-fit:cover;
+            border-radius:12px;
+            cursor:pointer;
+        }
 
-        for archivo in os.listdir(carpeta):
+        .video-card p{
+            margin-top:8px;
+        }
 
-            if archivo.lower().endswith(".jpg"):
+        a{
+            color:white;
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
 
-                nombre = os.path.splitext(
-                    archivo
-                )[0]
+<h1>{{ categoria }}</h1>
 
-                videos.append({
-                    "nombre": nombre,
-                    "thumb": archivo
-                })
+<div class="galeria">
 
-    videos.sort(
-        key=lambda x: x["nombre"]
-    )
+{% for video in videos %}
+<div class="video-card">
 
-    return render_template(
-        "categoria.html",
-        categoria=categoria,
-        videos=videos
-    )
+    <a href="/video/{{ categoria }}/{{ video.nombre }}">
+
+        <img
+            src="/static/thumbnails/{{ categoria }}/{{ video.thumb }}"
+            alt="{{ video.nombre }}"
+        >
+
+        <p>{{ video.nombre }}</p>
+
+    </a>
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
